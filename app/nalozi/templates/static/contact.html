@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Kontakt</h1>
+<form action="/kontakt" method="post">
+{% csrf_token %}
+Tvoje ime: <input type="text" name="name" /><br />
+Tvoj email: <input type="text" name="email" /><br />
+Zadeva: <input type="text" name="subject" /><br />
+<textarea name="message"></textarea><br />
+<input type="submit" value="Pošlji" />
+</form>
+{% endblock %}

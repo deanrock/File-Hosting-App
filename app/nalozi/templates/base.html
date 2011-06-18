@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>{% block title %}Uploadaj.si{% endblock %}</title>
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+<script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/js/jquery.mousewheel-3.0.2.pack.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox-1.3.1.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery.fancybox-1.3.1.css" media="screen" />
+<script type="text/javascript" src="/js/script.js"></script>
+</head>
+
+<body>
+<div id="user">
+	<div id="user2">
+	{% if user.is_authenticated %}
+	<ul>
+	<li><a href="/moji-prijatelji">Moji prijatelji</a></li>
+	<li><a href="/moje-datoteke">Moje datoteke</a></li>
+	<li><a href="/odjava">Odjava</a></li>
+	</ul>
+	{% else %}
+	<form action="/prijava" method="post">
+	{% csrf_token %}
+	<ul>
+	<li>Ime: <input type="text" name="username" /></li>
+	<li>Geslo: <input type="password" name="password" /></li>
+	<li><input type="submit" value="Prijava" /></li>
+	<li><a href="/registracija">Registracija</a></li>
+	</ul>
+	</form>
+	{% endif %}
+	</div>
+	<div class="clear"></div>
+</div>
+<div id="nav">
+	<div id="nav2">
+	<ul>
+		<li class="selected"><a href="/">Naloži</a></li>
+		<li><a href="/brskaj">Brskaj</a></li>
+	</ul>
+	<div id="search">
+		<form action="/iskanje" method="get">
+			<input type="text" value="{{search_query}}" name="q" />
+			<input type="submit" value="Išči" />
+		</form>
+	</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div id="content">
+	{% block content %}{% endblock %}
+</div>
+
+<ul id="footer">
+	<li><a href="/pogoji-uporabe">Pogoji uporabe</a></li>
+	<li><a href="/kontakt">Kontakt</a></li>
+</ul>
+{% if not DEBUG %}
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-19129963-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="left">
+<h1>Naloži datoteko</h1>
+{% if error %}<div style="color: red">{{ error }}</div>{% endif %}
+<form action="/" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+Izberi datoteko: <input type="file" name="file" /><br />
+
+{% if user.is_authenticated %}
+<input type="checkbox" value="yes" name="private" /> Zasebno<br />
+{% endif %}
+
+<input type="submit" value="Naloži" />
+</form>
+</div>
+<div id="right">
+	<div class="box">
+		<h4>Dovoljene datoteke</h4>
+		<img src="/images/file.png" />
+		<ul>
+		<li><b>Slike:</b> .bmp, .gif, .jpg, .png, .tiff</li>
+		<li><b>Dokumenti:</b> .pdf, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .odt, .ods, .odp (Microsoft Office, Open Office)</li>
+		<li><b>Video:</b> .wmv, .mp4</li>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	{% if not user.is_authenticated %}
+	<div class="box">
+		<h4>Registriraj se</h4>
+		<img src="/images/users.png" />Registrirani uporabniki lahko ocenjujejo, komentirajo naložene datoteke in nalagajo zasebne datoteke.
+		<div class="clear"></div>
+	</div>
+	{% else %}
+	<div class="box">
+		<h4>Predogled</h4>
+		Uploadaj.si omogoča predogled slik in PDF dokumentov.
+	</div>
+	{% endif %}
+</div>
+<div class="clear"></div>
+{% endblock %}

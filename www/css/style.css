@@ -1,0 +1,341 @@
+body {
+	font-family: Arial, Verdana;
+	font-size: 12px;
+	padding: 0px;
+	margin: 0px;
+	border:0px;
+	text-align: center;
+}
+
+/* standard */
+.clear { clear: both; display: block; }
+
+img {
+	border: 0px;
+}
+
+a {
+	color: #42689b;
+}
+
+
+h1 {
+	color: #df713b;
+	font-size: 20px;
+}
+
+h3 {
+	color: #42689b;
+	font-size: 15px;
+	margin-top: 20px;
+}
+
+h4 {
+	color: #42689b;
+	font-size: 15px;
+	padding:0px;margin:0px;
+	padding-bottom:10px;
+}
+
+th {
+	color: #42689b;
+}
+
+table {
+	width: 700px;
+	margin-left: 100px;
+}
+
+/* user */
+#user {
+	width: 100%;
+	background: url('/images/top.png') repeat-x;
+	height: 40px;
+	padding: 0px;
+	margin: 0px;
+	border:0px;
+	line-height: 40px;
+	color: #FFFFFF;
+}
+
+#user2 {
+	margin: 0px auto;
+	width: 900px;
+	position: relative;
+	height: 40px;
+}
+
+#user ul {
+	position: absolute;
+	right: 10px;
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+	border:0px;
+}
+
+#user a { color: #FFFFFF; }
+
+#user li {
+	float: left;
+	margin-right: 10px;
+}
+
+/* navigation bar */
+#nav {
+	width: 100%;
+	text-align: right;
+	background: url('/images/menu.png') repeat-x;
+	height: 67px;
+	padding: 0px;
+	margin: 0px;
+	border:0px;
+}
+
+#nav2 {
+	margin: 0px auto;
+	width: 900px;
+	height: 67px;
+	position: relative;
+}
+
+#nav ul {
+	display:block;
+	list-style: none;
+	margin:0px;padding:0px;border:0px;
+	position: absolute;
+	bottom: 0px;
+	left: 150px;
+}
+
+#nav li {
+	float: left;
+	margin-right: 10px;
+	display: block;
+	color: #000000;
+	height: 30px;
+	line-height: 30px;
+}
+
+#nav li a{
+	color: #000000;
+	text-decoration: none;
+	height: 30px;
+	display:block;
+	
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+#nav li a:hover { background: #f3fbff; }
+#nav li.selected a { background: #FFFFFF; }
+
+#nav #search {
+	position: absolute;
+	bottom: 10px;
+	right: 30px;
+}
+
+#logo {
+	text-align: center;
+	padding: 30px;
+}
+
+/* content */
+#content {
+	margin: 0px auto;
+	width: 900px;
+	text-align: left;
+}
+
+#left {
+	float: left;
+	width: 400px;
+}
+
+#right {
+	float: right;
+	width: 400px;
+}
+
+.box {
+	border: 1px #42689b solid;
+	padding: 10px;
+	margin: 10px;
+}
+
+.box img {
+	float: left;
+	padding-right: 15px;
+}
+
+.box ul {margin:0px;border:0px;padding:0px;list-style: none;float:left;width:300px}
+.box li {margin:0px;border:0px;padding:0px;padding-bottom: 4px}
+.box b { font-weight: 100 }
+/* footer */
+#footer {
+padding-top:20px;
+	text-align: center;
+}
+
+#footer ul {
+	list-style: none;
+}
+
+#footer li {
+display: inline;
+}
+
+/* show file */
+.item_t { float:left}
+.item_rating {float:right;display:block;}
+#item_info {
+	border: 1px #42689b solid;
+	padding: 10px;
+	margin: 10px;
+}
+
+#item_info dl {
+	margin-bottom:50px;
+}
+
+#item_info dl dt {
+	float:left;
+	font-weight:bold;
+	margin-right:10px;
+	padding:5px;
+	width:100px;
+	text-align: left;
+}
+
+#item_info dl dd {
+	margin:2px 0;
+	padding:5px 0;
+	float: left;
+	width: 700px;
+	text-align: left;
+}
+
+#comments {
+	text-align: left;
+}
+
+#comments dl {
+}
+
+#comments dl dt {
+	float:left;
+	margin-right:5px;
+	padding:5px;
+}
+
+#comments dl span {
+	color: #666666;
+}
+
+#comments dl dd {
+	margin:2px 0;
+	padding:5px 0;
+	width: 700px;
+}
+
+/* preview */
+video { width: 200px }
+
+/* rating */	
+	.star-rating{
+		list-style:none;
+		margin: 0px;
+		padding:0px;
+		width: 150px;
+		height: 30px;
+		position: relative;
+		background: url(/images/star_rating.gif) top left repeat-x;		
+	}
+	.star-rating li{
+		padding:0px;
+		margin:0px;
+		height:30px;
+		width: 30px;		
+		/*\*/
+		float: left;
+		/* */
+	}
+	.star-rating li a{
+		display:block;
+		width:30px;
+		height: 30px;
+		line-height:30px;
+		text-decoration: none;
+		text-indent: -9000px;
+		z-index: 20;
+		position: absolute;
+		padding: 0px;
+		overflow:hidden;
+	}
+	.star-rating li a:hover{
+		background: url(/images/star_rating.gif) left center;
+		z-index: 2;
+		left: 0px;
+		border:none;
+	}
+	.star-rating a.one-star{
+		left: 0px;
+	}
+	.star-rating a.one-star:hover{
+		width:30px;
+	}
+	.star-rating a.two-stars{
+		left:30px;
+	}
+	.star-rating a.two-stars:hover{
+		width: 60px;
+	}
+	.star-rating a.three-stars{
+		left: 60px;
+	}
+	.star-rating a.three-stars:hover{
+		width: 90px;
+	}
+	.star-rating a.four-stars{
+		left: 90px;
+	}	
+	.star-rating a.four-stars:hover{
+		width: 120px;
+	}
+	.star-rating a.five-stars{
+		left: 120px;
+	}
+	.star-rating a.five-stars:hover{
+		width: 150px;
+	}
+	.star-rating li.current-rating{
+		background: url(/images/star_rating.gif) left bottom;
+		position: absolute;
+		height: 30px;
+		display: block;
+		text-indent: -9000px;
+		z-index: 1;
+	}
+	/* remove halo effect in firefox   */
+	a:active{
+		outline: none;
+	}
+
+/* comments */
+#comments textarea {
+	height: 40px;width: 400px;
+}
+
+/* results */
+.results {
+	list-style: none;
+}
+
+.results li {
+	float: left;
+	width: 200px;
+	height: 200px;
+}
+
+.fb_share_link { padding:2px 0 0 20px; height:16px; background:url('/images/fb.gif') no-repeat top left; }

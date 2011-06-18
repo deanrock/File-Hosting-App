@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ error }}
+<form action="/prijava" method="post">
+{% csrf_token %}
+Uporabniško ime: <input type="text" name="username" /><br />
+Geslo: <input type="password" name="password" /><br />
+{% if url != '' %}
+<input type="hidden" name="url" value="{{url}}" />
+{% endif %}
+<input type="submit" value="Prijava" />
+</form>
+{% endblock %}

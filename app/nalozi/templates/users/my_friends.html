@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Moji prijatelji - Naloži.si{% endblock %}
+
+{% block content %}
+<h1>Moji prijatelji</h1>
+
+{% if friends  %}
+<ul>
+	{% for friend in friends %}
+	<li>{{ friend.name }}</li>
+	{% endfor %}
+</ul>
+{% else %}
+Trenutno še nimaš dodanih prijateljev.
+{% endif %}
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}{{item.name}} - Uploadaj.si{% endblock %}
+
+{% block content %}
+<h1 class="item_t">{{item.name}}</h1>
+<ul id="{{item.code}}" class='star-rating item_rating'>
+	<li class='current-rating' style='width:{{rating}}px;'></li>
+	<li><a href='#' title='1' class='one-star star'>1</a></li>
+	<li><a href='#' title='2' class='two-stars star'>2</a></li>
+	<li><a href='#' title='3' class='three-stars star'>3</a></li>
+	<li><a href='#' title='4' class='four-stars star'>4</a></li>
+	<li><a href='#' title='5' class='five-stars star'>5</a></li>
+</ul>
+<div class="clear"></div>
+<div style="text-align:center">
+<div id="item_info" style="display:none">
+{% if item.user == user %}
+<form action="/datoteka/{{item.path}}" method="post">
+{% csrf_token %}
+{% endif %}
+<dl>
+	<dt>Datoteka</dt>
+	<dd><a href="/datoteka/{{item.path}}">{{item.name}}</a></dd>
+	<dt>Zasebno?</dt>
+	<dd>{% if item.is_private %}<img src="/images/check.png" style="width:15px" />{% endif %}&nbsp;</dd>
+	<dt>Naloženo</dt>
+	<dd>{{item.pub_date}}</dd>
+	<dt>Kratek URL</dt>
+	<dd><input type="text" value="http://uploadaj.si/d/{{item.code}}" style="width: 400px" /></dd>
+	<dt>Povezava</dt>
+	<dd><input type="text" value="http://uploadaj.si/datoteka/{{item.path}}" style="width: 400px" /></dd>
+	
+	{% if converted_vars.type == 'image' %}
+	<dt>Koda za forum</dt>
+	<dd><input type="text" value="[url=http://uploadaj.si/d/{{item.code}}][img]http://www.naloži.si/files/{{item.code}}/{{item.thumbnail_medium}}[/img][/url]" style="width: 400px" /></dd>
+	{% endif %}
+	{% if converted_vars and converted_vars.type == 'pdf' %}
+	<dt>Koda za forum</dt>
+	<dd><input type="text" value="[url=http://uploadaj.si/d/{{item.code}}][img]http://www.naloži.si/files/{{item.code}}/{{item.thumbnail_medium}}[/img][/url]" style="width: 400px" /></dd>
+	{% endif %}
+	<dt></dt>
+	<dd><a href="http://www.facebook.com/share.php?u=http://uploadaj.si/d/{{item.code}}" onclick="return fbs_click()" target="_blank" class="fb_share_link">Objavi na Facebooku</a></dd>
+	<dt>Opis</dt>
+	<dd>{% if show_edit_description %}<input type="text" value="{{item.description}}" name="description" style="width: 400px" /> <input type="submit" value="Shrani" />{% else %}{{item.description}}{% endif %}</dd>
+</dl>
+<div class="clear"></div>
+{% if item.user == user %}
+<div class="show_buttons">
+	{% if item.is_private %}<input type="submit" name="to_public" value="Objavi kot javno" />{% else %}<input type="submit" name="to_private" value="Objavi kot zasebno" />{% endif %}
+	<input type="submit" name="delete" onclick="if(!confirm('Si prepričan, da želiš izbrisati to datoteko?')){return false;}" value="Izbriši" />
+	<input type="submit" name="edit_description" value="Uredi opis" />
+</div>
+</form>
+{% endif %}
+</div>
+<a href="#" id="toggle_info">Prikaži podrobnosti</a>
+<script type="text/javascript">
+$("#toggle_info").click(function () {
+	$("#item_info").slideToggle("slow");
+});
+</script>
+
+<div id="preview">
+{% if item.type == 'video/mp4' %}
+<video controls>
+	<source src="/files/{{item.path}}" type="video/mp4" />
+</video>
+{% endif %}
+{% if converted_vars.type == 'image' %}
+<a href="/files/{{item.path}}" target="_blank">
+<img src="/files/{{item.path}}" id="image" />
+</a>
+<script type="text/javascript">
+//Calculate width & height
+var height = 500;
+var width = {{converted_vars.width}}*height/{{converted_vars.height}};
+$("#image").height(height);
+$("#image").width(width);
+</script>
+{% endif %}
+</div>
+{% if converted_vars and converted_vars.type == 'pdf' %}
+<div id="pdf_preview"></div>
+<div id="pdf_buttons">
+	<input id="pdf_back" type="button" onclick="pdf_previous_page()" value="&lt;" />
+	<span id="pdf_current_page"></span>
+	/
+	<span id="pdf_all_pages"></span>
+	<input id="pdf_forward" type="button" onclick="pdf_next_page()" value="&gt;" />
+</div>
+<script type="text/javascript">
+var pdf_files = [];
+{% for file in converted_vars.files %}pdf_files[{{file}}] = '{{file}}';{% endfor %}
+var all_pages = pdf_files.length;
+var current_page = 0;
+
+//Calculate width & height
+var height = 500;
+var width = {{converted_vars.width}}*height/{{converted_vars.height}};
+
+function pdf_load_page(page) {
+	if(page == -1) {
+		$("#pdf_preview_image").attr("src", "/files/{{item.code}}/converted-{{item.code}}.jpg");
+		page = 0;
+	}else{
+		$("#pdf_preview_image").attr("src", "/files/{{item.code}}/converted-{{item.code}}-" + pdf_files[page] + ".jpg");
+	}
+	
+	$("#pdf_current_page").html(page+1);
+	current_page = page;
+	
+	if(current_page == 0) {
+		$("#pdf_back").attr("disabled", "disabled");
+	}else{
+		$("#pdf_back").attr("disabled", "");
+	}
+	
+	if(current_page == all_pages-1) {
+		$("#pdf_forward").attr("disabled", "disabled");
+	}else{
+		$("#pdf_forward").attr("disabled", "");
+	}
+}
+
+function pdf_previous_page() {
+	if(current_page > 0) {
+		pdf_load_page(current_page-1);
+	}
+}
+
+function pdf_next_page() {
+	if(current_page < all_pages-1) {
+		pdf_load_page(current_page+1);
+	}
+}
+
+$("#pdf_preview").html("<img id=\"pdf_preview_image\" style='width:" + width + "px; height:" + height + "px' src=\"/images/blank.gif\" />");
+
+if(pdf_files.length > 0) {
+	pdf_load_page(0);	
+	$("#pdf_all_pages").html(pdf_files.length);
+}else{
+	all_pages = 1;
+	pdf_load_page(-1);	
+	$("#pdf_all_pages").html(1);
+}
+</script>
+
+{% endif %}
+<br /><br />
+<p style="text-align: center;font-size:20px">
+<a href="/files/{{item.path}}" target="_blank">Prenesi datoteko</a>
+</p>
+
+<div id="comments">
+{% if user.is_authenticated %}
+<h3>Dodaj komentar</h3>
+<form action="" method="post">
+{% csrf_token %} 
+<textarea name="comment"></textarea><br />
+<input type="submit" value="Dodaj" />
+</form> 
+{% endif %}
+
+{% if comments %}
+<h3>Komentarji</h3>
+<dl>
+{% for comment in comments %}
+	<dt><b>{{comment.author.username}}</b> <span>{{comment.pub_date}}</span></dt>
+	<dd>{{comment.comment}}</dd>
+{% endfor %}
+</dl>
+{% endif %}
+</div>
+</div>
+{% endblock %}

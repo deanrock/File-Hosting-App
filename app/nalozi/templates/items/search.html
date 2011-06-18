@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{search_query}} - Uploadaj.si{% endblock %}
+
+{% block content %}
+<form action="" method="post">
+{% csrf_token %}
+Išči med: <input type="checkbox" checked="{{search_cb_private}}" name="private" value="yes" /> lastnimi datoteki
+<input type="checkbox" name="pbulic" checked="{{search_db_public}}" value="yes" /> vsemi datotekami
+</form>
+<h1>Iskanje: {{search_query}}</h1>
+
+
+{% endblock %}

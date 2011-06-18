@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Brskaj - Uploadaj.si{% endblock %}
+
+{% block content %}
+<h1>Zadnje datoteke</h1>
+<ul class="results">
+{% for item in results %}
+<li>
+<a href="/datoteka/{{item.path}}">
+	{% if item.thumbnail %}<img src="/files/{{item.code}}/{{item.thumbnail}}" alt="{{item.name}}" title="{{item.name}}" /><br />{% endif %}
+	{{item.name}}
+</a>
+</li>
+{% endfor %}
+</ul>
+<div class="clear"></div>
+{% endblock %}
